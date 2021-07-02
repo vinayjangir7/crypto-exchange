@@ -1,0 +1,11 @@
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.mat-card-image {
+  max-width: calc(100% + 32px) !important;
+  margin: 0 -16px 16px -16px;
+}

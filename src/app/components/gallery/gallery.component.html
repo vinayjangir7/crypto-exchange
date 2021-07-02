@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="cards-container">
+    <mat-card *ngFor="let n of numbers" class="shadow">
+      <!-- <mat-card-header>
+        <mat-card-title>title</mat-card-title>
+        <mat-card-subtitle>subtitle</mat-card-subtitle>
+      </mat-card-header> -->
+      <mat-card-content>
+        <mat-spinner
+          *ngIf="isLoading"
+          src=""
+        ></mat-spinner>
+        <img
+          [hidden]="isLoading"
+          (load)="isLoading = false"
+          class="mat-card-image"
+          [src]="
+            'https://source.unsplash.com/random/400x300?sig=' + n + '&nature'
+          "
+          alt="random nature image"
+        />
+        <!-- <img
+          class="mat-card-image"
+          [src]="
+            'https://source.unsplash.com/random/400x400?sig=' + n + '&nature'
+          "
+          alt="random nature image"
+        /> -->
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button>
+          <mat-icon matBadge="15" matBadgeColor="accent">favorite</mat-icon>
+        </button>
+
+        <button mat-icon-button><mat-icon>share</mat-icon></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
