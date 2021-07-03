@@ -1,39 +1,60 @@
-<div class="container">
-  <div class="cards-container">
-    <mat-card *ngFor="let n of numbers" class="shadow">
-      <!-- <mat-card-header>
-        <mat-card-title>title</mat-card-title>
-        <mat-card-subtitle>subtitle</mat-card-subtitle>
-      </mat-card-header> -->
-      <mat-card-content>
-        <mat-spinner
-          *ngIf="isLoading"
-          src=""
-        ></mat-spinner>
-        <img
-          [hidden]="isLoading"
-          (load)="isLoading = false"
-          class="mat-card-image"
-          [src]="
-            'https://source.unsplash.com/random/400x300?sig=' + n + '&nature'
-          "
-          alt="random nature image"
-        />
-        <!-- <img
-          class="mat-card-image"
-          [src]="
-            'https://source.unsplash.com/random/400x400?sig=' + n + '&nature'
-          "
-          alt="random nature image"
-        /> -->
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-icon-button>
-          <mat-icon matBadge="15" matBadgeColor="accent">favorite</mat-icon>
-        </button>
+<div class="cards-container">
+  <mat-card *ngFor="let image of images" class="shadow">
+    <!-- <mat-card-header>
+      <mat-card-title>Nature</mat-card-title>
+      <mat-card-subtitle>subtitle</mat-card-subtitle>
+    </mat-card-header> -->
+    <mat-card-content>
+      <mat-spinner
+        class="m-auto"
+        *ngIf="isLoading"
+        src=""
+        [strokeWidth]="5"
+        [diameter]="40"
+      ></mat-spinner>
+      <img
+        [hidden]="isLoading"
+        (load)="isLoading = false"
+        class="mat-card-image"
+        [src]="
+          'https://source.unsplash.com/random/400x300?sig=' +
+          image.index +
+          '&nature'
+        "
+        alt="random nature image"
+      />
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-icon-button
+        (click)="image.likes = image.likes + 1; updateLocalStorage(images)"
+      >
+        <mat-icon [matBadge]="image.likes" matBadgeColor="accent"
+          >favorite</mat-icon
+        >
+      </button>
 
-        <button mat-icon-button><mat-icon>share</mat-icon></button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+      <button mat-icon-button [matMenuTriggerFor]="shareMenu">
+        <mat-icon [matBadge]="image.shares" matBadgeColor="accent"
+          >share</mat-icon
+        >
+      </button>
+      <mat-menu #shareMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="image.shares = image.shares + 1; updateLocalStorage(images)"
+        >
+          <mat-icon>add_to_drive</mat-icon>
+          <span>Add to Drive</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="image.shares = image.shares + 1; updateLocalStorage(images)"
+        >
+          <mat-icon>facebook</mat-icon>
+          <span>Facebook</span>
+        </button>
+      </mat-menu>
+    </mat-card-actions>
+  </mat-card>
 </div>

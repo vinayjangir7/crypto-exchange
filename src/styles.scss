@@ -20,8 +20,8 @@ body {
 }
 
 .container {
-  min-height: calc(100vh - 128px);
-  padding: 4rem 1rem;
+  min-height: calc(100vh - 160px);
+  padding: 5rem 1rem 1rem 1rem;
   background-color: var(--bg-color);
 }
 
@@ -35,3 +35,22 @@ img {
   height: auto;
 }
 
+.m-auto {
+  margin: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.m-3 {
+  margin: 1rem;
+}
+
+.text-align-center {
+  text-align: center;
+}
