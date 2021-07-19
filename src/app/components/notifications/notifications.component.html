@@ -1,1 +1,51 @@
-<p>notifications works!</p>
+<!-- <div>
+  <h1 class="mat-h1">Notifications</h1>
+  <mat-card>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let notification of notifications">
+          <ng-container *ngIf="notification.type == 'like'">
+            <mat-icon>thumb_up</mat-icon>
+            <span>{{ notification.heading }}</span>
+          </ng-container>
+          <mat-divider></mat-divider>
+          <ng-container *ngIf="notification.type == 'share'">
+            <mat-icon>share</mat-icon> <span>{{ notification.heading }}</span>
+          </ng-container>
+          <mat-divider></mat-divider>
+          <ng-container *ngIf="notification.type == 'comment'">
+            <mat-icon>3p</mat-icon> <span>{{ notification.heading }}</span>
+          </ng-container>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<mat-toolbar color="primary">
+  <span><h1 class="mat-h1">Notifications</h1></span>
+</mat-toolbar>
+<div class="container">
+  <mat-accordion class="headers-align" multi>
+    <mat-expansion-panel *ngFor="let notification of notifications">
+      <mat-expansion-panel-header style="justify-content: space-between">
+        <mat-panel-title>
+          <ng-container *ngIf="notification.type == 'Like'">
+            <mat-icon color="primary">{{ notification.icon }}</mat-icon>
+          </ng-container>
+          <ng-container *ngIf="notification.type == 'Comment'">
+            <mat-icon color="warn">{{ notification.icon }}</mat-icon>
+          </ng-container>
+          <ng-container *ngIf="notification.type == 'Share'">
+            <mat-icon color="accent">{{ notification.icon }}</mat-icon>
+          </ng-container>
+          <span style="margin-left: 0.5rem">{{ notification.type }}</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ notification.heading }}
+          <span>{{ notification.timeStamp | date: "medium" }}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

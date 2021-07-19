@@ -1,6 +1,56 @@
-<mat-tab-group mat-align-tabs="start">
-  <mat-tab label="Profile"
-    ><mat-card class="m-3">
+<mat-tab-group mat-align-tabs="start" color="primary">
+  <mat-tab label="Profile">
+    <mat-card class="m-3">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <button
+            mat-mini-fab
+            aria-label="Example icon button with a face icon"
+          >
+            <mat-icon>face</mat-icon>
+          </button>
+        </div>
+        <mat-card-title>Vinay Jangir</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip-list aria-label="Skills" selectable="false">
+            <mat-chip>Developer</mat-chip>
+            <mat-chip>Java</mat-chip>
+            <mat-chip>Angular</mat-chip>
+            <mat-chip>TypeScript</mat-chip>
+          </mat-chip-list>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> This is the expansion title </mat-panel-title>
+              <mat-panel-description>
+                This is a summary of the content
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>This is the primary content of the panel.</p>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Self aware panel </mat-panel-title>
+              <mat-panel-description>
+                Currently I am {{ panelOpenState ? "open" : "closed" }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      <!-- <mat-card-actions>
+    </mat-card-actions> -->
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Activity">
+    <mat-card class="m-3">
       <mat-card-header>
         <div mat-card-avatar>
           <button
@@ -39,9 +89,50 @@
         </mat-accordion>
       </mat-card-content>
       <!-- <mat-card-actions>
-    </mat-card-actions> -->
-    </mat-card></mat-tab
-  >
-  <mat-tab label="Activity">Content 2</mat-tab>
-  <mat-tab label="Membership">Content 3</mat-tab>
+  </mat-card-actions> -->
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Membership">
+    <mat-card class="m-3">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <button
+            mat-mini-fab
+            aria-label="Example icon button with a face icon"
+          >
+            <mat-icon>face</mat-icon>
+          </button>
+        </div>
+        <mat-card-title>Vinay Jangir</mat-card-title>
+        <mat-card-subtitle>Developer</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> This is the expansion title </mat-panel-title>
+              <mat-panel-description>
+                This is a summary of the content
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>This is the primary content of the panel.</p>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Self aware panel </mat-panel-title>
+              <mat-panel-description>
+                Currently I am {{ panelOpenState ? "open" : "closed" }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>I'm visible because I am open</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      <!-- <mat-card-actions>
+  </mat-card-actions> -->
+    </mat-card>
+  </mat-tab>
 </mat-tab-group>

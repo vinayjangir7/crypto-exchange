@@ -1,28 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
-  --bg-color: hsla(0, 3%, 87%, 0.979);
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+@mixin theme-colors($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  $background-color: mat-color($background, background);
+  $foreground-color: mat-color($foreground, text);
+  $primary-color: mat-color($primary);
+  $accent-color: mat-color($accent);
+  $warn-color: mat-color($warn);
+
+  --app-background-color: #{$background-color};
+  --app-background-dark-color: #{darken($background-color, 10%)};
+  --app-foreground-color: #{$foreground-color};
+  --app-primary-color: #{$primary-color};
+  --app-primary-dark-color: #{darken($primary-color, 10%)};
+  --app-accent-color: #{$accent-color};
+  --app-warn-color: #{$warn-color};
+}
+
+// Define the default theme (same as the example above).
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-teal, A200, A100, A400);
+$app-warn: mat-palette($mat-deep-orange, A200, A100, A400);
+$light-theme: mat-light-theme(
+  (
+    color: (
+      primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    ),
+  )
+);
+
+// Include the default theme styles (color and default density)
+@include angular-material-theme($light-theme);
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-green, 700);
+$dark-accent: mat-palette($mat-pink, A200, A100, A400);
+$dark-warn: mat-palette($mat-amber);
+$dark-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+      warn: $dark-warn,
+    ),
+  )
+);
+
+// Include the dark color styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.dark-theme` will be affected by this alternate dark theme instead of the default theme.
+
+.light-theme {
+  @include angular-material-color($light-theme);
+  @include theme-colors(($light-theme));
+}
+
+.dark-theme {
+  @include angular-material-color($dark-theme);
+  @include theme-colors(($dark-theme));
 }
 
 html,
 body {
-  height: 100%;
+  height: auto;
   min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .app-container {
   min-height: 100vh;
+  background-color: var(--app-background-color);
 }
 
-.container {
-  min-height: calc(100vh - 160px);
-  padding: 5rem 1rem 1rem 1rem;
-  background-color: var(--bg-color);
+.component-container {
+  padding-top: 4rem;
+  min-height: calc(100vh - 128px);
 }
 
 .shadow {
@@ -36,21 +105,56 @@ img {
 }
 
 .m-auto {
-  margin: auto;
+  margin: auto !important;
 }
 
 .ml-auto {
-  margin-left: auto;
+  margin-left: auto !important;
 }
 
 .mr-auto {
-  margin-right: auto;
+  margin-right: auto !important;
 }
 
 .m-3 {
-  margin: 1rem;
+  margin: 1rem !important;
+}
+
+.p-3 {
+  padding: 1rem !important;
 }
 
 .text-align-center {
-  text-align: center;
+  text-align: center !important;
+}
+
+.selected-link {
+  background-color: var(--app-primary-dark-color) !important;
+}
+
+.container {
+  padding: 1rem;
+  min-height: calc(100vh - 160px);
+}
+
+.header-text {
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+.w-75 {
+  width: 75% !important;
+}
+.w-50 {
+  width: 50% !important;
+}
+.w-25 {
+  width: 25% !important;
+}
+
+svg {
+  fill: var(--app-foreground-color);
 }

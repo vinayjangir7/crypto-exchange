@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Image } from 'src/app/shared/models/image.model';
+import { ImageModel } from 'src/app/shared/models/image.model';
 
 @Component({
   selector: 'app-gallery',
@@ -7,7 +7,7 @@ import { Image } from 'src/app/shared/models/image.model';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
-  images: Image[] = [
+  images: ImageModel[] = [
     {
       name: '',
       src: ' ',
@@ -82,7 +82,7 @@ export class GalleryComponent implements OnInit {
     },
   ];
   isLoading = true;
-  savedImages: Image[] | undefined;
+  savedImages: ImageModel[] | undefined;
   key = 'image-storage';
 
   constructor() {}
@@ -96,7 +96,7 @@ export class GalleryComponent implements OnInit {
     }
   }
 
-  updateLocalStorage(data: Image[]) {
+  updateLocalStorage(data: ImageModel[]) {
     localStorage.removeItem(this.key);
     localStorage.setItem(this.key, JSON.stringify(data));
   }

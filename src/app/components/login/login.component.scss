@@ -1,0 +1,39 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+mat-card-header {
+  justify-content: center;
+}
+
+.or-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0rem;
+}
+
+.or-text {
+  line-height: 0px;
+  padding: 0rem 0.5rem;
+  font-weight: bolder;
+}
+
+mat-card-content,
+mat-card-actions {
+  margin-bottom: 0px !important;
+}
+
+.login-buttons {
+  margin-bottom: 0.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end !important;
+  margin: 0rem;
+}

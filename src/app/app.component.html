@@ -1,5 +1,14 @@
-<div class="app-container">
-  <div><app-header></app-header></div>
-  <div class="container"><router-outlet></router-outlet></div>
-  <div><app-footer></app-footer></div>
+<div
+  class="app-container"
+  [ngClass]="isDarkMode ? 'dark-theme bg-dark' : 'light-theme bg-light'"
+>
+  <div>
+    <app-header></app-header>
+  </div>
+  <div class="component-container">
+    <router-outlet></router-outlet>
+  </div>
+  <div>
+    <app-footer></app-footer>
+  </div>
 </div>

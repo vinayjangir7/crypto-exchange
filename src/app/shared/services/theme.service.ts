@@ -1,24 +1,55 @@
-import { HttpClient } from '@angular/common/http';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ThemeOption } from '../models/theme-option.model';
-import { StyleManagerService } from './style-manager.service';
+import { Subject } from 'rxjs';
+import { Theme } from '../models/theme.enum';
+import { ThemeStorageService } from './theme-storage-service';
 
 @Injectable()
 export class ThemeService {
-  constructor(
-    private http: HttpClient,
-    private styleManager: StyleManagerService
-  ) {}
+  isDarkMode = false;
+  darkModeVisibilityChange: Subject<boolean> = new Subject<boolean>();
 
-  getThemeOptions(): Observable<Array<ThemeOption>> {
-    return this.http.get<Array<ThemeOption>>('assets/theme-options.json');
+  constructor(
+    private overlayContainer: OverlayContainer,
+    private themeStorageService: ThemeStorageService
+  ) {
+    const themeName = themeStorageService.getStoredThemeName();
+    if (themeName) {
+      this.isDarkMode = themeName == Theme.DARK_THEME ? true : false;
+      this.setOverlayContainerTheme(themeName);
+    }
+    this.darkModeVisibilityChange.subscribe((value: boolean) => {
+      this.isDarkMode = value;
+    });
   }
 
-  setTheme(themeToSet: string) {
-    this.styleManager.setStyle(
-      'theme',
-      `node_modules/@angular/material/prebuilt-themes/${themeToSet}.css`
-    );
+  /**
+   * Toggling the theme on user input
+   *
+   * @memberof ThemeService
+   */
+  toggleTheme(): void {
+    this.darkModeVisibilityChange.next(!this.isDarkMode);
+    const theme = this.isDarkMode ? Theme.DARK_THEME : Theme.LIGHT_THEME;
+    this.setOverlayContainerTheme(theme);
+    this.themeStorageService.storeTheme(theme);
+  }
+  /**
+   * Setting theme for overlay angular material components
+   *
+   * @private
+   * @param {string} theme
+   * @memberof ThemeService
+   */
+  private setOverlayContainerTheme(theme: string) {
+    if (this.overlayContainer.getContainerElement().classList.contains(theme)) {
+      this.overlayContainer
+        .getContainerElement()
+        .classList.remove(Theme.DARK_THEME);
+      this.overlayContainer
+        .getContainerElement()
+        .classList.remove(Theme.LIGHT_THEME);
+    }
+    this.overlayContainer.getContainerElement().classList.add(theme);
   }
 }

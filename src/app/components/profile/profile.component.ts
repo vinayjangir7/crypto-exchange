@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  panelOpenState = false;
+  panelOpenState = true;
   constructor() {}
 
   ngOnInit(): void {}

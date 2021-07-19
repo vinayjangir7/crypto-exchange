@@ -1,44 +1,57 @@
 <header>
   <nav>
     <mat-toolbar class="navbar shadow" color="primary">
-      <a mat-button routerLink="/">App</a>
-      <span class="spacer"></span>
+      <a mat-icon-button routerLink="/login">
+        <mat-icon>home</mat-icon>
+      </a>
       <ul class="navbar-nav">
-        <li class="nav-item"><a mat-button routerLink="/">Home</a></li>
-        <li class="nav-item">
-          <a mat-button routerLink="/gallery">Gallery</a>
-        </li>
-        <li class="nav-item">
-          <a mat-button routerLink="/dashboard">Dashboard</a>
+        <li class="nav-item" *ngFor="let header of headers">
+          <a
+            mat-button
+            [routerLink]="header.link"
+            routerLinkActive="selected-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ header.name }}</a
+          >
         </li>
       </ul>
       <span class="spacer"></span>
       <div>
-        <button mat-icon-button>
+        <button
+          mat-icon-button
+          matTooltip="Notifications"
+          aria-label="Button that displays a tooltip when focused or hovered over"
+          class="b-margin"
+        >
           <mat-icon
             matBadge="15"
-            matBadgeColor="warn"
+            matBadgeColor="accent"
             [matMenuTriggerFor]="notifications"
             >notifications</mat-icon
           >
         </button>
-        <button mat-icon-button>
+        <button
+          mat-icon-button
+          matTooltip="Messages"
+          aria-label="Button that displays a tooltip when focused or hovered over"
+          class="b-margin"
+        >
           <mat-icon
             matBadge="15"
-            matBadgeColor="warn"
+            matBadgeColor="accent"
             [matMenuTriggerFor]="messages"
             >message</mat-icon
           >
         </button>
-        <app-theme-menu
-          [options]="options$ | async"
-          (themeChange)="themeChangeHandler($event)"
-        >
-        </app-theme-menu>
+        <button mat-icon-button (click)="toggleTheme()" class="b-margin">
+          <mat-icon *ngIf="!isDarkMode">light_mode</mat-icon>
+          <mat-icon *ngIf="isDarkMode">dark_mode</mat-icon>
+        </button>
         <button
           mat-icon-button
           [matMenuTriggerFor]="menu"
           aria-label="Example icon-button with a menu"
+          class="b-margin"
         >
           <mat-icon>account_circle</mat-icon>
         </button>
@@ -56,6 +69,29 @@
     <mat-icon>settings</mat-icon>
     <span>Settings</span>
   </button>
+  <mat-divider> </mat-divider>
+
+  <button mat-menu-item routerLink="/table">
+    <mat-icon>table_view</mat-icon>
+    <span>Table</span>
+  </button>
+  <button mat-menu-item routerLink="/drag-drop">
+    <mat-icon>drag_indicator</mat-icon>
+    <span>Drag Drop</span>
+  </button>
+  <button mat-menu-item routerLink="/address">
+    <mat-icon>place</mat-icon>
+    <span>Address Form</span>
+  </button>
+  <button mat-menu-item routerLink="/tree">
+    <mat-icon>account_tree</mat-icon>
+    <span>Tree</span>
+  </button>
+  <button mat-menu-item routerLink="/navigation">
+    <mat-icon>navigation</mat-icon>
+    <span>Navigation</span>
+  </button>
+
   <mat-divider> </mat-divider>
   <button mat-menu-item>
     <mat-icon>logout</mat-icon>
@@ -77,9 +113,9 @@
     Marie shared your post.
   </span>
   <mat-divider> </mat-divider>
-  <span mat-menu-item class="text-align-center">
-    <a mat-button routerLink="/notifications">View All</a>
-  </span>
+  <button mat-menu-item routerLink="/notifications" class="text-align-center">
+    <span>View All</span>
+  </button>
 </mat-menu>
 
 <mat-menu #messages="matMenu">
@@ -96,7 +132,7 @@
     Marie shared your post.
   </span>
   <mat-divider> </mat-divider>
-  <span mat-menu-item class="text-align-center">
-    <a mat-button routerLink="/messages">View All</a>
-  </span>
+  <button mat-menu-item routerLink="/messages" class="text-align-center">
+    <span>View All</span>
+  </button>
 </mat-menu>

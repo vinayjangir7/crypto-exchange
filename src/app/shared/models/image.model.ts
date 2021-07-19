@@ -1,4 +1,4 @@
-export interface Image {
+export interface ImageModel {
   name: string;
   src: string;
   downloadLink: string;

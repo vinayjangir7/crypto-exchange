@@ -2,9 +2,15 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  padding: 1rem;
 }
 
 .mat-card-image {
   max-width: calc(100% + 32px) !important;
-  margin: 0 -16px 16px -16px;
+  margin: 0 -16px 16px -16px !important;
+}
+
+.loading-image {
+  display: block;
+  margin: auto;
 }
