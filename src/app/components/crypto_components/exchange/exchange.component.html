@@ -12,9 +12,31 @@
     </mat-form-field>
   </mat-toolbar>
   <table mat-table matSort aria-label="Assets" class="w-100">
-    <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ col }}</th>
-      <td mat-cell *matCellDef="let asset">{{ asset[col] }}</td>
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+      <th
+        style="font-weight: bold"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        scope="col"
+      >
+        {{ col.value }}
+      </th>
+      <ng-container *ngIf="col.key == 'changePercent24Hr'">
+        <td mat-cell *matCellDef="let asset">
+          <span [ngClass]="asset[col.key] > 0 ? 'green' : 'red'">
+            {{ asset[col.key] | number: "1.1-2" }}
+          </span>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col.key == 'priceUsd'">
+        <td mat-cell *matCellDef="let asset">
+          {{ asset[col.key] | number: "1.1-2" }}
+        </td>
+      </ng-container>
+      <ng-container>
+        <td mat-cell *matCellDef="let asset">{{ asset[col.key] }}</td>
+      </ng-container>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -25,8 +47,8 @@
     #paginator
     [length]="dataSource?.data?.length"
     [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="25"
+    [pageSizeOptions]="[5, 10, 25, 50]"
   >
   </mat-paginator>
 </div>

@@ -1,11 +1,11 @@
 <header>
   <nav>
-    <mat-toolbar class="navbar shadow" color="primary">
-      <a mat-icon-button routerLink="/login">
+    <mat-toolbar class="custom-navbar shadow" color="primary">
+      <a mat-icon-button routerLink="/">
         <mat-icon>home</mat-icon>
       </a>
-      <ul class="navbar-nav">
-        <li class="nav-item" *ngFor="let header of headers">
+      <ul class="custom-navbar-nav">
+        <li class="custom-nav-item" *ngFor="let header of headers">
           <a
             mat-button
             [routerLink]="header.link"
@@ -70,11 +70,6 @@
     <span>Settings</span>
   </button>
   <mat-divider> </mat-divider>
-
-  <button mat-menu-item routerLink="/table">
-    <mat-icon>table_view</mat-icon>
-    <span>Table</span>
-  </button>
   <button mat-menu-item routerLink="/drag-drop">
     <mat-icon>drag_indicator</mat-icon>
     <span>Drag Drop</span>

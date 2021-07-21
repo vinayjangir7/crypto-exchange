@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -53,7 +52,6 @@ const firebaseConfig = {
     ProfileComponent,
     NotificationsComponent,
     MessagesComponent,
-    DashboardComponent,
     AddressFormComponent,
     TreeComponent,
     DragDropComponent,

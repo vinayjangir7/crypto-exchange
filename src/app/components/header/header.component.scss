@@ -1,4 +1,4 @@
-.navbar {
+.custom-navbar {
   display: flex;
   align-items: center;
   position: fixed;
@@ -12,13 +12,13 @@ ul {
   margin: 0;
 }
 
-.navbar-nav {
+.custom-navbar-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.nav-item {
+.custom-nav-item {
   display: inline-block;
 }
 

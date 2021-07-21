@@ -6,6 +6,10 @@ import { Asset } from 'src/app/shared/models/crypto_models/asset.model';
 import { AssetService } from 'src/app/shared/services/crypto-services/asset.service';
 import { TableDataSource } from './table-datasource';
 
+export interface IColumn {
+  key: string;
+  value: string;
+}
 @Component({
   selector: 'app-exchange',
   templateUrl: './exchange.component.html',
@@ -18,6 +22,7 @@ export class ExchangeComponent implements AfterViewInit {
   dataSource!: TableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  columns!: IColumn[];
   displayedColumns!: string[];
 
   constructor(private assetService: AssetService) {}
@@ -26,12 +31,13 @@ export class ExchangeComponent implements AfterViewInit {
     this.assetService.getAssets().subscribe((assets: Asset[]) => {
       this.dataSource = new TableDataSource(assets);
       console.log(this.dataSource);
-      this.displayedColumns = [
-        'name',
-        'symbol',
-        'priceUsd',
-        'changePercent24Hr',
+      this.columns = [
+        { key: 'name', value: 'Name' },
+        { key: 'symbol', value: 'Symbol' },
+        { key: 'priceUsd', value: 'Price($)' },
+        { key: 'changePercent24Hr', value: 'Change in 24 Hrs' },
       ];
+      this.displayedColumns = this.columns.map((col) => col.key);
       console.log(this.displayedColumns);
 
       this.dataSource.sort = this.sort;
