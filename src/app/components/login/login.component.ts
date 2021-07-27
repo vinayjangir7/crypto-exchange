@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  hide = true;
+  hidePassword = true;
+  isRegisterTab = false;
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
@@ -45,13 +47,13 @@ export class LoginComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.emailSignIn(
+    this.authService.emailSignUp(
       this.usernameInput?.value,
       this.passwordInput?.value
     );
   }
 
-  reset(): void {
+  tabChange(event: MatTabChangeEvent): void {
     this.logInForm.reset();
   }
 
