@@ -39,9 +39,19 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-  async emailSignIn() {
-    const provider = new firebase.auth.EmailAuthProvider();
-    const credential = await this.afAuth.signInWithPopup(provider);
+  async emailSignIn(email: string, password: string) {
+    const credential = await this.afAuth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+    return this.updateUserData(credential.user);
+  }
+
+  async emailSignUp(email: string, password: string) {
+    const credential = await this.afAuth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
     return this.updateUserData(credential.user);
   }
 
@@ -61,7 +71,7 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  async signOut() {
+  async logOut() {
     await this.afAuth.signOut();
     this.router.navigate(['/logout']);
   }
