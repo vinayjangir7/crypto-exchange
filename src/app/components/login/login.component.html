@@ -2,73 +2,74 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>App</mat-card-title>
-      <mat-card-subtitle>Log In</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <div class="login-buttons">
-        <button mat-flat-button (click)="googleLogIn()">
-          <mat-icon svgIcon="google"></mat-icon>
-          <span> Login with Google</span>
-        </button>
-        <button mat-flat-button>
-          <mat-icon>facebook</mat-icon>
-          <span> Login with Facebook</span>
-        </button>
-      </div>
-      <div class="or-container">
-        <mat-divider inset="true"></mat-divider>
-        <span class="or-text">Or</span>
-        <mat-divider inset="true"> </mat-divider>
-      </div>
-      <form [formGroup]="logInForm">
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            placeholder="Enter your username"
-            type="text"
-            formControlName="username"
-            required
-            autocomplete="username"
-          />
-          <mat-error *ngIf="usernameInput?.hasError('email')"
-            >Incorrect email</mat-error
-          >
-          <mat-error *ngIf="usernameInput?.hasError('required')"
-            >Enter username</mat-error
-          >
-        </mat-form-field>
-        <mat-form-field class="w-100" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            placeholder="Enter your password"
-            [type]="hide ? 'password' : 'text'"
-            formControlName="password"
-            required
-            autocomplete="current-password"
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-          <mat-error *ngIf="usernameInput?.hasError('min')"
-            >Password is incorrect</mat-error
-          >
-          <mat-error *ngIf="usernameInput?.hasError('required')"
-            >Enter password</mat-error
-          >
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions class="text-align-center">
-      <button mat-stroked-button (click)="logIn()">Login</button>
-      <!-- <button mat-stroked-button (click)="reset()">Reset</button> -->
-    </mat-card-actions>
+    <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+      <mat-tab label="Log In">
+        <mat-card-content>
+          <div class="login-buttons">
+            <button mat-flat-button (click)="googleLogIn()">
+              <mat-icon svgIcon="google"></mat-icon>
+              <span> Login with Google</span>
+            </button>
+          </div>
+          <div class="or-container">
+            <mat-divider inset="true"></mat-divider>
+            <span class="or-text">Or</span>
+            <mat-divider inset="true"> </mat-divider>
+          </div>
+          <form [formGroup]="logInForm">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                placeholder="Enter your username"
+                type="text"
+                formControlName="username"
+                required
+                autocomplete="username"
+              />
+              <mat-error *ngIf="usernameInput?.hasError('email')"
+                >Incorrect email</mat-error
+              >
+              <mat-error *ngIf="usernameInput?.hasError('required')"
+                >Enter username</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                placeholder="Enter your password"
+                [type]="hide ? 'password' : 'text'"
+                formControlName="password"
+                required
+                autocomplete="current-password"
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="usernameInput?.hasError('min')"
+                >Password is incorrect</mat-error
+              >
+              <mat-error *ngIf="usernameInput?.hasError('required')"
+                >Enter password</mat-error
+              >
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button (click)="logIn()">Login</button>
+        </mat-card-actions>
+      </mat-tab>
+      <mat-tab label="Register"></mat-tab>
+    </mat-tab-group>
   </mat-card>
 </div>

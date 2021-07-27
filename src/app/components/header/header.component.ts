@@ -35,4 +35,8 @@ export class HeaderComponent implements OnInit {
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
+
+  logOut(): void {
+    this.authService.logOut();
+  }
 }

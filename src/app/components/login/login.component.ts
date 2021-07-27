@@ -38,7 +38,17 @@ export class LoginComponent implements OnInit {
   }
 
   logIn(): void {
-    console.log('login');
+    this.authService.emailSignIn(
+      this.usernameInput?.value,
+      this.passwordInput?.value
+    );
+  }
+
+  register(): void {
+    this.authService.emailSignIn(
+      this.usernameInput?.value,
+      this.passwordInput?.value
+    );
   }
 
   reset(): void {
