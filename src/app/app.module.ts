@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +21,8 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { ProfileComponent } from './components/profile/profile.component';
 import { TreeComponent } from './components/tree/tree.component';
 import { MaterialModule } from './material.module';
-import { ThemeStorageService } from './shared/services/theme-storage-service';
-import { ThemeService } from './shared/services/theme.service';
+import { ThemeStorageService } from './shared/services/theme/theme-storage-service';
+import { ThemeService } from './shared/services/theme/theme.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
@@ -30,17 +30,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AssetsComponent } from './components/crypto_components/assets/assets.component';
 import { MarketsComponent } from './components/crypto_components/markets/markets.component';
 import { ExchangeComponent } from './components/crypto_components/exchange/exchange.component';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyDbcUAKKRUCVh418P_MViaRaHfyMByNwyc',
-  authDomain: 'auth-project-951b7.firebaseapp.com',
-  databaseURL: 'https://auth-project-951b7.firebaseio.com',
-  projectId: 'auth-project-951b7',
-  storageBucket: 'auth-project-951b7.appspot.com',
-  messagingSenderId: '539228003694',
-  appId: '1:539228003694:web:c7a89597b8297fe671f57f',
-  measurementId: 'G-NM58J16Q9R',
-};
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -72,7 +62,7 @@ const firebaseConfig = {
     ReactiveFormsModule,
     DragDropModule,
     OverlayModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],

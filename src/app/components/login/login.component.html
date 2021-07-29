@@ -28,6 +28,7 @@
           <button
             mat-stroked-button
             (click)="logIn()"
+            (key.down)="logIn()"
             [disabled]="logInForm.invalid"
           >
             Login
@@ -42,6 +43,7 @@
           <button
             mat-stroked-button
             (click)="register()"
+            (key.down)="register()"
             [disabled]="logInForm.invalid"
           >
             Register

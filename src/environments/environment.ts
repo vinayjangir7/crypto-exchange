@@ -6,6 +6,16 @@ export const environment = {
   production: false,
   endPoint: 'https://api.coincap.io/',
   version: 'v2/',
+  firebaseConfig: {
+    apiKey: 'AIzaSyDbcUAKKRUCVh418P_MViaRaHfyMByNwyc',
+    authDomain: 'auth-project-951b7.firebaseapp.com',
+    databaseURL: 'https://auth-project-951b7.firebaseio.com',
+    projectId: 'auth-project-951b7',
+    storageBucket: 'auth-project-951b7.appspot.com',
+    messagingSenderId: '539228003694',
+    appId: '1:539228003694:web:c7a89597b8297fe671f57f',
+    measurementId: 'G-NM58J16Q9R',
+  },
 };
 
 /*

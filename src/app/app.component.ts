@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { ThemeService } from './shared/services/theme.service';
+import { ThemeService } from './shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-root',

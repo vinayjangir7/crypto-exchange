@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Theme } from '../models/theme.enum';
+import { Theme } from '../../models/theme.enum';
 import { ThemeStorageService } from './theme-storage-service';
 
 @Injectable()
@@ -42,14 +42,12 @@ export class ThemeService {
    * @memberof ThemeService
    */
   private setOverlayContainerTheme(theme: string) {
-    if (this.overlayContainer.getContainerElement().classList.contains(theme)) {
-      this.overlayContainer
-        .getContainerElement()
-        .classList.remove(Theme.DARK_THEME);
-      this.overlayContainer
-        .getContainerElement()
-        .classList.remove(Theme.LIGHT_THEME);
-    }
+    this.overlayContainer
+      .getContainerElement()
+      .classList.remove(Theme.DARK_THEME);
+    this.overlayContainer
+      .getContainerElement()
+      .classList.remove(Theme.LIGHT_THEME);
     this.overlayContainer.getContainerElement().classList.add(theme);
   }
 }

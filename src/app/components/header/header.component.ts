@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HeaderConfigs, IHeader } from 'src/app/shared/config/header-config';
 import { User } from 'src/app/shared/models/user.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { ThemeService } from 'src/app/shared/services/theme.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { ThemeService } from 'src/app/shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-header',

@@ -4,58 +4,60 @@
       <a mat-icon-button routerLink="/">
         <mat-icon>home</mat-icon>
       </a>
-      <ul class="custom-navbar-nav">
-        <li class="custom-nav-item" *ngFor="let header of headers">
-          <a
-            mat-button
-            [routerLink]="header.link"
-            routerLinkActive="selected-link"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >{{ header.name }}</a
+      <ng-container *ngIf="user | async">
+        <ul class="custom-navbar-nav">
+          <li class="custom-nav-item" *ngFor="let header of headers">
+            <a
+              mat-button
+              [routerLink]="header.link"
+              routerLinkActive="selected-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >{{ header.name }}</a
+            >
+          </li>
+        </ul>
+        <span class="spacer"></span>
+        <div>
+          <button
+            mat-icon-button
+            matTooltip="Notifications"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            class="b-margin"
           >
-        </li>
-      </ul>
-      <span class="spacer"></span>
-      <div>
-        <button
-          mat-icon-button
-          matTooltip="Notifications"
-          aria-label="Button that displays a tooltip when focused or hovered over"
-          class="b-margin"
-        >
-          <mat-icon
-            matBadge="15"
-            matBadgeColor="accent"
-            [matMenuTriggerFor]="notifications"
-            >notifications</mat-icon
+            <mat-icon
+              matBadge="15"
+              matBadgeColor="accent"
+              [matMenuTriggerFor]="notifications"
+              >notifications</mat-icon
+            >
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Messages"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            class="b-margin"
           >
-        </button>
-        <button
-          mat-icon-button
-          matTooltip="Messages"
-          aria-label="Button that displays a tooltip when focused or hovered over"
-          class="b-margin"
-        >
-          <mat-icon
-            matBadge="15"
-            matBadgeColor="accent"
-            [matMenuTriggerFor]="messages"
-            >message</mat-icon
+            <mat-icon
+              matBadge="15"
+              matBadgeColor="accent"
+              [matMenuTriggerFor]="messages"
+              >message</mat-icon
+            >
+          </button>
+          <button mat-icon-button (click)="toggleTheme()" class="b-margin">
+            <mat-icon *ngIf="!isDarkMode">light_mode</mat-icon>
+            <mat-icon *ngIf="isDarkMode">dark_mode</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+            class="b-margin"
           >
-        </button>
-        <button mat-icon-button (click)="toggleTheme()" class="b-margin">
-          <mat-icon *ngIf="!isDarkMode">light_mode</mat-icon>
-          <mat-icon *ngIf="isDarkMode">dark_mode</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          aria-label="Example icon-button with a menu"
-          class="b-margin"
-        >
-          <mat-icon>account_circle</mat-icon>
-        </button>
-      </div>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </div>
+      </ng-container>
     </mat-toolbar>
   </nav>
 </header>
