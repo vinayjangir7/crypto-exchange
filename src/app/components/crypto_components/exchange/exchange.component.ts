@@ -21,7 +21,6 @@ export class ExchangeComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Asset>;
   dataSource!: TableDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columns!: IColumn[];
   displayedColumns!: string[];
 
@@ -30,7 +29,7 @@ export class ExchangeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.assetService.getAssets().subscribe((assets: Asset[]) => {
       this.dataSource = new TableDataSource(assets);
-      console.log(this.dataSource);
+
       this.columns = [
         { key: 'name', value: 'Name' },
         { key: 'symbol', value: 'Symbol' },
@@ -38,7 +37,6 @@ export class ExchangeComponent implements AfterViewInit {
         { key: 'changePercent24Hr', value: 'Change in 24 Hrs' },
       ];
       this.displayedColumns = this.columns.map((col) => col.key);
-      console.log(this.displayedColumns);
 
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -49,5 +47,6 @@ export class ExchangeComponent implements AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.fData = this.dataSource.filteredData;
   }
 }

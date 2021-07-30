@@ -9,9 +9,17 @@ import { Asset } from 'src/app/shared/models/crypto_models/asset.model';
  * (including sorting, pagination, and filtering).
  */
 export class TableDataSource extends MatTableDataSource<Asset> {
-  constructor(private assets: any) {
+  constructor(private assets: Asset[]) {
     super();
-    this.data = assets.data;
+    this.data = assets;
+  }
+
+  filterData$ = new BehaviorSubject<Asset[]>([]);
+  set fData(v: Asset[]) {
+    this.filterData$.next(v);
+  }
+  get fData(): Asset[] {
+    return this.filterData$.value;
   }
 
   /**
@@ -24,10 +32,17 @@ export class TableDataSource extends MatTableDataSource<Asset> {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
       const bSub$ = new BehaviorSubject<Asset[]>([]);
-      merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
+      merge(
+        observableOf(this.data),
+        this.paginator.page,
+        this.sort.sortChange,
+        this.filterData$
+      )
         .pipe(
           map(() => {
-            return this.getPagedData(this.getSortedData([...this.data]));
+            return this.getPagedData(
+              this.getSortedData([...this.filteredData])
+            );
           })
         )
         .subscribe(bSub$);
