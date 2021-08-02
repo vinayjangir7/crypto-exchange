@@ -10,6 +10,7 @@ export interface Asset {
   priceUsd: string;
   changePercent24Hr: string;
   vwap24Hr: string;
+  icon: string;
   [
     key: string
   ]: string /* Added to prevent compilation error 'Index signature of object type implicitly has an 'any' type'

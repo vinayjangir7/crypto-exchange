@@ -1,23 +1,44 @@
 <div class="container">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row style="padding: 3.5rem 1rem 2rem 1rem">
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Search</mat-label>
+  <mat-toolbar color="primary" class="filters">
+    <mat-form-field appearance="fill" style="flex-grow: 1">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        placeholder="Type to search"
+        (keyup)="applyFilter($event)"
+        #input
+        type="search"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <form >
+      <mat-form-field appearance="fill" style="flex-grow: 0">
+        <mat-label>Currency</mat-label>
         <input
+          type="text"
           matInput
-          placeholder="Type to search"
-          (keyup)="applyFilter($event)"
-          #input
-          type="search"
+          placeholder="Pick one"
+          [formControl]="currencyForm"
+          [matAutocomplete]="auto"
+          aria-label="Currency"
         />
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-icon matSuffix>expand_more</mat-icon>
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="displayReadableRate"
+          (optionSelected)="getSelectedCurrency($event)"
+        >
+          <mat-option *ngFor="let rate of filteredRates | async" [value]="rate">
+            {{ rate.id }} ({{ rate.symbol }})
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
-    </mat-toolbar-row>
+    </form>
   </mat-toolbar>
   <table mat-table matSort aria-label="Assets" class="w-100">
     <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
       <th
-        style="font-weight: bold"
+        class="table-header"
         mat-header-cell
         *matHeaderCellDef
         mat-sort-header
@@ -35,6 +56,16 @@
       <ng-container *ngIf="col.key == 'priceUsd'">
         <td mat-cell *matCellDef="let asset">
           {{ asset[col.key] | number: "1.1-2" }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col.key == 'symbol'">
+        <td mat-cell *matCellDef="let asset">
+          <img
+            class="crypto-icons"
+            [src]="asset.icon"
+            (error)="onImgError($event)"
+            alt="Crypto Icon"
+          />
         </td>
       </ng-container>
       <ng-container>
