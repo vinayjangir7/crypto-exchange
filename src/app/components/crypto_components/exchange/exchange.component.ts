@@ -89,12 +89,12 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.subscriptions.push(
       this.assetService.getAssets().subscribe((assets: Asset[]) => {
-        if (this.cachedAssets.length == 0) {
-          this.cachedAssets = assets;
-          console.log(this.cachedAssets);
-        }
         const assetsWithIcon = this.addIcon(assets);
         this.dataSource = new TableDataSource(assetsWithIcon);
+        if (this.cachedAssets.length == 0) {
+          this.cachedAssets = assetsWithIcon;
+          console.log(this.cachedAssets);
+        }
 
         this.columns = [
           { key: 'symbol', value: 'Symbol' },
@@ -141,7 +141,10 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.dataSource.fData = this.dataSource.filteredData;
+    this.dataSource.dataBS = this.dataSource.filteredData;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   /**
@@ -190,7 +193,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   getSelectedCurrency(event: MatAutocompleteSelectedEvent): void {
     this.selectedRate.next(event.option.value);
     this.columns = this.updateHeaders(this.columns);
-    this.dataSource.data = this.updateRates();
+    this.dataSource.dataBS = this.updateRates();
   }
 
   /**
@@ -201,7 +204,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
    * @memberof ExchangeComponent
    */
   private updateRates(): Asset[] {
-    const assetsArray: Asset[] = this.cachedAssets.map((asset: Asset) => asset);
+    const assetsArray: Asset[] = JSON.parse(JSON.stringify(this.cachedAssets));
     return assetsArray.map((asset: Asset) => {
       asset.priceUsd = this.selectedRate.value
         ? (

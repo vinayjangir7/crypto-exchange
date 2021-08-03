@@ -1,5 +1,5 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { BehaviorSubject, merge, of as observableOf } from 'rxjs';
+import { BehaviorSubject, merge, Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Asset } from 'src/app/shared/models/crypto_models/asset.model';
 
@@ -11,15 +11,19 @@ import { Asset } from 'src/app/shared/models/crypto_models/asset.model';
 export class TableDataSource extends MatTableDataSource<Asset> {
   constructor(private assets: Asset[]) {
     super();
-    this.data = assets;
+    this.dataBS = assets;
+    this.data$.subscribe((obj: Asset[]) => {
+      this.data = obj;
+      console.log('sub', this.data);
+    });
   }
 
-  filterData$ = new BehaviorSubject<Asset[]>([]);
-  set fData(v: Asset[]) {
-    this.filterData$.next(v);
+  data$ = new BehaviorSubject<Asset[]>([]);
+  set dataBS(v: Asset[]) {
+    this.data$.next(v);
   }
-  get fData(): Asset[] {
-    return this.filterData$.value;
+  get dataBS(): Asset[] {
+    return this.data$.value;
   }
 
   /**
@@ -32,17 +36,10 @@ export class TableDataSource extends MatTableDataSource<Asset> {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
       const bSub$ = new BehaviorSubject<Asset[]>([]);
-      merge(
-        observableOf(this.data),
-        this.paginator.page,
-        this.sort.sortChange,
-        this.filterData$
-      )
+      merge(this.data$, this.paginator.page, this.sort.sortChange)
         .pipe(
           map(() => {
-            return this.getPagedData(
-              this.getSortedData([...this.filteredData])
-            );
+            return this.getPagedData(this.getSortedData([...this.data]));
           })
         )
         .subscribe(bSub$);
