@@ -4,7 +4,7 @@
       <a mat-icon-button routerLink="/">
         <mat-icon>home</mat-icon>
       </a>
-      <ng-container *ngIf="user | async">
+      <ng-container *ngIf="user | async as userObj">
         <ul class="custom-navbar-nav">
           <li class="custom-nav-item" *ngFor="let header of headers">
             <a
@@ -54,7 +54,13 @@
             aria-label="Example icon-button with a menu"
             class="b-margin"
           >
-            <mat-icon>account_circle</mat-icon>
+            <ng-container *ngIf="userObj.photoURL; else defaultUser">
+              <img [src]="userObj.photoURL" [alt]="userObj.displayName" />
+            </ng-container>
+
+            <ng-template #defaultUser>
+              <mat-icon>account_circle</mat-icon>
+            </ng-template>
           </button>
         </div>
       </ng-container>
