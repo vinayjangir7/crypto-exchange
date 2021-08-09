@@ -8,14 +8,16 @@
     <mat-card class="my-1">
       <mat-card-header>
         <div mat-card-avatar>
-          <button
-            mat-mini-fab
-            aria-label="Example icon button with a face icon"
-          >
+          <ng-container *ngIf="user | async as userObj; else defaultIcon">
+            <img class="circle" [src]="userObj.photoURL" alt="User Image" />
+          </ng-container>
+          <ng-template #defaultIcon>
             <mat-icon>face</mat-icon>
-          </button>
+          </ng-template>
         </div>
-        <mat-card-title>Vinay Jangir</mat-card-title>
+        <mat-card-title *ngIf="user | async as userObj">
+          {{ userObj.displayName }}
+        </mat-card-title>
         <mat-card-subtitle>
           <mat-chip-list aria-label="Skills" selectable="false">
             <mat-chip>Developer</mat-chip>
