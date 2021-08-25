@@ -1,5 +1,5 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { BehaviorSubject, merge, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Asset } from 'src/app/shared/models/crypto_models/asset.model';
 
@@ -52,7 +52,7 @@ export class TableDataSource extends MatTableDataSource<Asset> {
   }
 
   /**
-   *  Called when the table is being destroyed. Use this function, to clean up
+   * Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect(): void {}
