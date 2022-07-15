@@ -3,12 +3,12 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
   MatAutocomplete,
-  MatAutocompleteSelectedEvent,
+  MatAutocompleteSelectedEvent
 } from '@angular/material/autocomplete';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -57,8 +57,8 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    // Add 'implements OnInit' to the class.
     this.subscriptions.push(
       this.rateService.rates.subscribe(
         (ratesArray) => {
@@ -141,7 +141,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
    * @private
    * @memberof ExchangeComponent
    */
-  private initializeCurrencyAutoComplete() {
+  private initializeCurrencyAutoComplete(): void {
     this.filteredRates = this.currencyForm.valueChanges.pipe(
       startWith(''),
       map((value: string | Rate) =>
@@ -158,8 +158,8 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
    * @private
    * @memberof ExchangeComponent
    */
-  private initializeDefaultCurrency() {
-    const rate = this.rates.find((rateObj: Rate) => rateObj.symbol == 'USD');
+  private initializeDefaultCurrency(): void {
+    const rate = this.rates.find((rateObj: Rate) => rateObj.symbol === 'USD');
     this.selectedRate = new BehaviorSubject(rate);
   }
 
@@ -180,12 +180,12 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Filter table data
+   * Filter table data
    *
    * @param {Event} event
    * @memberof ExchangeComponent
    */
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.tableData = this.dataSource.filteredData;
@@ -195,7 +195,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Loads a default image on img elements onError event.
+   * Loads a default image on img elements onError event.
    *
    * @param {*} event
    * @memberof ExchangeComponent
@@ -205,7 +205,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Function to filter the rates based on user input in currency autocomplete
+   * Function to filter the rates based on user input in currency autocomplete
    *
    * @param {string} filterStr
    * @return {*}  {Rate[]}
@@ -221,7 +221,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Function which will provide readable rate in the UI
+   * Function which will provide readable rate in the UI
    *
    * @param {Rate} rate
    * @return {*}  {string}
@@ -232,7 +232,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Function to get selected currency from auto complete
+   * Function to get selected currency from auto complete
    *
    * @param {MatAutocompleteSelectedEvent} event
    * @memberof ExchangeComponent
@@ -244,7 +244,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Function to update rates based on selected currency
+   * Function to update rates based on selected currency
    *
    * @private
    * @return {*}  {Asset[]}
@@ -264,7 +264,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   *Function to update currency symbol in table header
+   * Function to update currency symbol in table header
    *
    * @param {IColumn[]} columns
    * @return {*}  {IColumn[]}
@@ -276,7 +276,7 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedRate.subscribe((rate: Rate | undefined) => {
         if (rate) {
           cols = columns.map((col: IColumn) => {
-            if (col.key == 'priceUsd') {
+            if (col.key === 'priceUsd') {
               col.value = `Price (${
                 rate.currencySymbol ? rate.currencySymbol : rate.symbol
               })`;
