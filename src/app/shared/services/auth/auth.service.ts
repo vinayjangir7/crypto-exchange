@@ -63,7 +63,14 @@ export class AuthService {
     }
   }
 
-  async emailSignUp(email: string, password: string): Promise<void> {
+  async emailSignUp(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    userImage: any,
+    gender: string
+  ): Promise<void> {
     const credential: firebase.auth.UserCredential | void = await this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .catch((error: HttpErrorResponse) => {

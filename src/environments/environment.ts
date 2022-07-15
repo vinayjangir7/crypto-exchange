@@ -16,6 +16,8 @@ export const environment = {
     appId: '1:539228003694:web:c7a89597b8297fe671f57f',
     measurementId: 'G-NM58J16Q9R',
   },
+  cacheSize: 1,
+  refreshInterval: 60 * 60 * 1000,
 };
 
 /*

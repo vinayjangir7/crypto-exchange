@@ -60,44 +60,55 @@ export class ExchangeComponent implements OnInit, AfterViewInit, OnDestroy {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.subscriptions.push(
-      this.rateService.getRates().subscribe((ratesArray) => {
-        /* Sorting in ascending order based on rate id's */
-        ratesArray.sort((r1: Rate, r2: Rate) => r1.id.localeCompare(r2.id));
-        this.rates = this.convertRateId(ratesArray);
-        this.initializeDefaultCurrency();
-        this.initializeCurrencyAutoComplete();
-      })
+      this.rateService.rates.subscribe(
+        (ratesArray) => {
+          /* Sorting in ascending order based on rate id's */
+          ratesArray.sort((r1: Rate, r2: Rate) => r1.id.localeCompare(r2.id));
+          this.rates = this.convertRateId(ratesArray);
+          this.initializeDefaultCurrency();
+          this.initializeCurrencyAutoComplete();
+        },
+        (error) => {
+          this.rates = [];
+        }
+      )
     );
   }
 
   ngAfterViewInit(): void {
     this.subscriptions.push(
-      this.assetService.getAssets().subscribe((assets: Asset[]) => {
-        const assetsWithIcon = this.addIcon(assets);
-        this.dataSource = new TableDataSource(assetsWithIcon);
-        if (this.cachedAssets.length == 0) {
-          this.cachedAssets = assetsWithIcon;
-          console.log(this.cachedAssets);
-        }
+      this.assetService.getAssets().subscribe(
+        (assets: Asset[]) => {
+          const assetsWithIcon = this.addIcon(assets);
+          this.dataSource = new TableDataSource(assetsWithIcon);
+          if (this.cachedAssets.length == 0) {
+            this.cachedAssets = assetsWithIcon;
+            console.log(this.cachedAssets);
+          }
 
-        this.columns = [
-          { key: 'symbol', value: 'Symbol' },
-          { key: 'name', value: 'Name' },
-          {
-            key: 'priceUsd',
-            value: `Price (${
-              this.selectedRate && this.selectedRate?.value?.currencySymbol
-                ? this.selectedRate?.value?.currencySymbol
-                : this.selectedRate?.value?.symbol
-            })`,
-          },
-          { key: 'changePercent24Hr', value: '24H Change' },
-        ];
-        this.displayedColumns = this.columns.map((col) => col.key);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
-      })
+          this.columns = [
+            { key: 'symbol', value: 'Symbol' },
+            { key: 'name', value: 'Name' },
+            {
+              key: 'priceUsd',
+              value: `Price (${
+                this.selectedRate && this.selectedRate?.value?.currencySymbol
+                  ? this.selectedRate?.value?.currencySymbol
+                  : this.selectedRate?.value?.symbol
+              })`,
+            },
+            { key: 'changePercent24Hr', value: '24H Change' },
+          ];
+          this.displayedColumns = this.columns.map((col) => col.key);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.table.dataSource = this.dataSource;
+        },
+        (error) => {
+          console.log('error: ', error);
+          this.dataSource = new TableDataSource([]);
+        }
+      )
     );
   }
 

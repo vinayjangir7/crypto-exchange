@@ -12,12 +12,6 @@
         [strokeWidth]="5"
         [diameter]="40"
       ></mat-spinner>
-      <!-- <img
-        class="loading-image"
-        *ngIf="isLoading"
-        src="assets/images/gif/plant.gif"
-        alt=""
-      /> -->
       <img
         [hidden]="isLoading"
         (load)="isLoading = false"

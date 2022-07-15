@@ -1,8 +1,5 @@
 <div class="login-container container">
   <mat-card>
-    <!-- <mat-card-header>
-      <mat-card-title>App</mat-card-title>
-    </mat-card-header> -->
     <mat-tab-group
       mat-align-tabs="center"
       mat-stretch-tabs
@@ -22,14 +19,14 @@
             <span class="or-text">Or</span>
             <mat-divider inset="true"> </mat-divider>
           </div>
-          <ng-container *ngTemplateOutlet="form"></ng-container>
+          <ng-container *ngTemplateOutlet="loginHtmlForm"></ng-container>
         </mat-card-content>
         <mat-card-actions>
           <button
             mat-stroked-button
             (click)="logIn()"
             (key.down)="logIn()"
-            [disabled]="logInForm.invalid"
+            [disabled]="loginForm.invalid"
           >
             Login
           </button>
@@ -37,14 +34,14 @@
       </mat-tab>
       <mat-tab label="Register">
         <mat-card-content style="margin-top: 0.25rem !important">
-          <ng-container *ngTemplateOutlet="form"></ng-container>
+          <ng-container *ngTemplateOutlet="registerHtmlForm"></ng-container>
         </mat-card-content>
         <mat-card-actions>
           <button
             mat-stroked-button
             (click)="register()"
             (key.down)="register()"
-            [disabled]="logInForm.invalid"
+            [disabled]="registerForm.invalid"
           >
             Register
           </button>
@@ -54,8 +51,8 @@
   </mat-card>
 </div>
 
-<ng-template #form>
-  <form [formGroup]="logInForm">
+<ng-template #loginHtmlForm>
+  <form [formGroup]="loginForm">
     <mat-form-field class="w-100" appearance="outline">
       <mat-label>Username</mat-label>
       <input
@@ -101,5 +98,142 @@
         >Enter password</mat-error
       >
     </mat-form-field>
+  </form>
+</ng-template>
+
+<ng-template #registerHtmlForm>
+  <form [formGroup]="registerForm">
+    <table class="w-100">
+      <tr>
+        <td>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter first name"
+              type="text"
+              formControlName="firstName"
+              required
+            />
+            <mat-error *ngIf="firstName?.hasError('required')"
+              >Enter first name</mat-error
+            >
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter last name"
+              type="text"
+              formControlName="lastName"
+              required
+            />
+            <mat-error *ngIf="lastName?.hasError('required')"
+              >Enter last name</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field appearance="outline" class="gender-font">
+            <mat-select
+              placeholder="Gender"
+              name="item"
+              required
+              formControlName="gender"
+            >
+              <mat-option value="Male"> Male </mat-option>
+              <mat-option value="Female"> Female </mat-option>
+            </mat-select>
+            <mat-error *ngIf="gender?.hasError('required')"
+              >Select gender</mat-error
+            >
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="outline">
+            <mat-label>User Image</mat-label>
+            <input
+              matInput
+              readonly
+              placeholder="label"
+              type="text"
+              formControlName="userImage"
+            />
+            <input
+              hidden
+              (change)="uploadFile($event)"
+              #fileInput
+              type="file"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              matTooltip="Upload image"
+              (click)="fileInput.click()"
+            >
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <mat-error *ngIf="userImage?.hasError('required')"
+              >Upload a profile picture</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              placeholder="Enter your username"
+              type="text"
+              formControlName="regUsername"
+              required
+            />
+            <mat-error *ngIf="regUsername?.hasError('email')"
+              >Incorrect email</mat-error
+            >
+            <mat-error *ngIf="regUsername?.hasError('required')"
+              >Enter username</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Enter your password"
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="regPassword"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error *ngIf="regPassword?.hasError('min')"
+              >Password is incorrect</mat-error
+            >
+            <mat-error *ngIf="regPassword?.hasError('required')"
+              >Enter password</mat-error
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
   </form>
 </ng-template>
